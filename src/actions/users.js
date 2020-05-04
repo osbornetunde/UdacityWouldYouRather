@@ -1,19 +1,31 @@
 export const Types = {
   GET_USERS_REQUEST: "users/get_users_request",
   GET_USERS_SUCCESS: "users/get_users_success",
-  GET_USERS_ERROR: "users/get_user_error",
+  USERS_ERROR: "users/user_error",
+  LOGIN_USER_REQUEST: "users/login_user_request",
+  LOGIN_USER: "users/login_user",
 };
 
 export const getUsersRequest = () => ({
   type: Types.GET_USERS_REQUEST,
 });
 
-export const getUsersSuccess = (data) => ({
+export const getUsersSuccess = ({ data }) => ({
   type: Types.GET_USERS_SUCCESS,
   payload: data,
 });
 
 export const getUsersError = ({ error }) => ({
-  type: Types.GET_USERS_ERROR,
+  type: Types.USERS_ERROR,
   payload: error,
+});
+
+export const loginUserRequest = (user) => ({
+  type: Types.LOGIN_USER_REQUEST,
+  payload: user,
+});
+
+export const loginUser = (user) => ({
+  type: Types.LOGIN_USER,
+  payload: user,
 });

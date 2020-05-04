@@ -1,21 +1,42 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import StyledHeader from "./../styles/StyledHeader";
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   return (
-    <nav>
-      sty
+    <StyledHeader>
       <span>
-        <Link>Home</Link>
+        <Link to="/">Home</Link>
       </span>
       <span>
-        <Link>New Question</Link>
+        <Link to="/add">New Question</Link>
       </span>
       <span>
-        <Link>Leader Board</Link>
+        <Link to="/leaderboard">Leader Board</Link>
       </span>
-    </nav>
+      {currentUser && (
+        <div style={{ display: "flex" }}>
+          <span>{`Hello ${currentUser.name}`}</span>
+          <img
+            src={currentUser.avatarURL}
+            alt="currentUser"
+            style={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
+          <span>Logout</span>
+        </div>
+      )}
+    </StyledHeader>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ users }) => ({
+  currentUser: users.authUser,
+});
+
+export default connect(mapStateToProps)(Header);

@@ -3,11 +3,8 @@ import * as actions from "../actions/users";
 import * as api from "../api/_DATA";
 
 function* getUsers() {
-  console.log("calling get users");
-
   try {
     const response = yield call(api._getUsers);
-    console.log("======> user result", response);
     yield put(
       actions.getUsersSuccess({
         data: response,
@@ -26,6 +23,23 @@ function* watchGetUsersRequest() {
   yield takeEvery(actions.Types.GET_USERS_REQUEST, getUsers);
 }
 
-const usersSagas = [fork(watchGetUsersRequest)];
+function* loginUser(action) {
+  console.log("======>loginuser", action);
+  try {
+    yield put(actions.loginUser(action.payload));
+  } catch (err) {
+    yield put(
+      actions.getUsersError({
+        error: err,
+      })
+    );
+  }
+}
+
+function* watchLoginUserRequest() {
+  yield takeEvery(actions.Types.LOGIN_USER_REQUEST, loginUser);
+}
+
+const usersSagas = [fork(watchGetUsersRequest), fork(watchLoginUserRequest)];
 
 export default usersSagas;
