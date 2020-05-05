@@ -4,6 +4,8 @@ export const Types = {
   USERS_ERROR: "users/user_error",
   LOGIN_USER_REQUEST: "users/login_user_request",
   LOGIN_USER: "users/login_user",
+  LOGOUT_USER_REQUEST: "users/logout_user_request",
+  LOGOUT_USER: "users/logout_user",
 };
 
 export const getUsersRequest = () => ({
@@ -28,4 +30,13 @@ export const loginUserRequest = (user) => ({
 export const loginUser = (user) => ({
   type: Types.LOGIN_USER,
   payload: user,
+});
+
+export const logoutUserRequest = () => ({
+  type: Types.LOGOUT_USER_REQUEST,
+});
+
+export const logoutUser = (data) => ({
+  type: Types.LOGIN_USER,
+  payload: data,
 });

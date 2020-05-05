@@ -3,12 +3,22 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SignInForm from "./components/SignInForm";
-import { getUsersRequest, loginUserRequest } from "./actions/users";
+import {
+  getUsersRequest,
+  loginUserRequest,
+  logoutUserRequest,
+} from "./actions/users";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Main from "./components/Main";
 import AddQuestion from "./components/AddQuestion";
 
-function App({ users, currentUser, getUsersRequest, loginUserRequest }) {
+function App({
+  users,
+  currentUser,
+  getUsersRequest,
+  loginUserRequest,
+  logoutUserRequest,
+}) {
   useEffect(() => {
     getUsersRequest();
 
@@ -16,7 +26,7 @@ function App({ users, currentUser, getUsersRequest, loginUserRequest }) {
   }, []);
   return (
     <div>
-      <Header currentUser={currentUser} />
+      <Header currentUser={currentUser} logoutUserRequest={logoutUserRequest} />
       <Switch>
         <Route exact path="/">
           <SignInForm
@@ -50,6 +60,8 @@ const mapStateToProps = ({ users }) => ({
   users: users.users,
 });
 
-export default connect(mapStateToProps, { getUsersRequest, loginUserRequest })(
-  App
-);
+export default connect(mapStateToProps, {
+  getUsersRequest,
+  loginUserRequest,
+  logoutUserRequest,
+})(App);

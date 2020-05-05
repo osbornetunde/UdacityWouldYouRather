@@ -1,8 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StyledHeader from "./../styles/StyledHeader";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, logoutUserRequest }) => {
+  const history = useHistory();
+
+  const logOutHandler = () => {
+    logoutUserRequest();
+    history.push("/");
+  };
   return (
     <StyledHeader>
       <span>
@@ -27,7 +34,7 @@ const Header = ({ currentUser }) => {
               objectFit: "cover",
             }}
           />
-          <span>Logout</span>
+          <span onClick={logOutHandler}>Logout</span>
         </div>
       )}
     </StyledHeader>

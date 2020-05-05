@@ -2,7 +2,7 @@ import { Types } from "./../actions/users";
 
 const INITIAL_STATE = {
   users: [],
-  authUser: "",
+  authUser: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,6 +17,11 @@ export default (state = INITIAL_STATE, action) => {
       };
 
     case Types.LOGIN_USER:
+      return {
+        ...state,
+        authUser: action.payload,
+      };
+    case Types.LOGOUT_USER:
       return {
         ...state,
         authUser: action.payload,

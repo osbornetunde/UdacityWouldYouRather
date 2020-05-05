@@ -40,6 +40,26 @@ function* watchLoginUserRequest() {
   yield takeEvery(actions.Types.LOGIN_USER_REQUEST, loginUser);
 }
 
-const usersSagas = [fork(watchGetUsersRequest), fork(watchLoginUserRequest)];
+function* logoutUser(action) {
+  try {
+    yield put(actions.loginUser(action.payload));
+  } catch (err) {
+    yield put(
+      actions.getUsersError({
+        error: err,
+      })
+    );
+  }
+}
+
+function* watchLogoutUserRequest() {
+  yield takeEvery(actions.Types.LOGOUT_USER_REQUEST, logoutUser);
+}
+
+const usersSagas = [
+  fork(watchGetUsersRequest),
+  fork(watchLoginUserRequest),
+  fork(watchLogoutUserRequest),
+];
 
 export default usersSagas;
