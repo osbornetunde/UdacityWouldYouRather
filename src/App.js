@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import SigninPage from "./Pages/SigninPage";
+import Header from "./components/Header";
+import SignInForm from "./components/SignInForm";
+import { getUsersRequest, loginUserRequest } from "./actions/users";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import Main from "./components/Main";
+import AddQuestion from "./components/AddQuestion";
 
-function App() {
+function App({ users, currentUser, getUsersRequest, loginUserRequest }) {
+  useEffect(() => {
+    getUsersRequest();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path="/">
-          <SigninPage />
+          <SignInForm
+            users={users}
+            loginUserRequest={loginUserRequest}
+            getUsersRequest={getUsersRequest}
+          />
         </Route>
+        <ProtectedRoute
+          path="/questions"
+          currentUser={currentUser}
+          component={Main}
+        />
+        <ProtectedRoute
+          path="/add"
+          currentUser={currentUser}
+          component={AddQuestion}
+        />
+        <ProtectedRoute
+          path="/leaderboard"
+          currentUser={currentUser}
+          component={Main}
+        />
       </Switch>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = ({ users }) => ({
+  currentUser: users.authUser,
+  users: users.users,
+});
+
+export default connect(mapStateToProps, { getUsersRequest, loginUserRequest })(
+  App
+);

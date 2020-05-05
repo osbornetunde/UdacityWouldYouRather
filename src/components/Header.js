@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import StyledHeader from "./../styles/StyledHeader";
 
@@ -35,8 +34,4 @@ const Header = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = ({ users }) => ({
-  currentUser: users.authUser,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
