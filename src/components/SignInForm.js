@@ -8,7 +8,6 @@ const SignInForm = ({ users, loginUserRequest }) => {
   const [displaySelectedUser, setDisplaySelectedUser] = useState("");
   const [selectedUser, setSelectedUser] = useState("");
 
-  console.log("=========> signInForm", users);
   const history = useHistory();
 
   const toggleList = () => {

@@ -11,6 +11,7 @@ import {
 import ProtectedRoute from "./utils/ProtectedRoute";
 import Main from "./components/Main";
 import AddQuestion from "./components/AddQuestion";
+import LeaderBoard from "./components/LeaderBoard";
 
 function App({
   users,
@@ -48,7 +49,7 @@ function App({
         <ProtectedRoute
           path="/leaderboard"
           currentUser={currentUser}
-          component={Main}
+          component={LeaderBoard}
         />
       </Switch>
     </div>

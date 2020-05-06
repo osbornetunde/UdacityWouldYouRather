@@ -13,7 +13,7 @@ const Header = ({ currentUser, logoutUserRequest }) => {
   return (
     <StyledHeader>
       <span>
-        <Link to="/">Home</Link>
+        <Link to="/questions">Home</Link>
       </span>
       <span>
         <Link to="/add">New Question</Link>

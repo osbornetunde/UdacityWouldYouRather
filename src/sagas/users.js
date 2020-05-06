@@ -24,7 +24,6 @@ function* watchGetUsersRequest() {
 }
 
 function* loginUser(action) {
-  console.log("======>loginuser", action);
   try {
     yield put(actions.loginUser(action.payload));
   } catch (err) {

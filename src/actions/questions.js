@@ -1,6 +1,8 @@
 export const Types = {
   GET_QUESTIONS_REQUEST: "get_questions_request",
   GET_QUESTIONS_SUCCESS: "get_questions_success",
+  SAVE_ANSWER_REQUEST: "save_answer_request",
+  SAVE_ANSWER_SUCCESS: "save_answer_success",
   QUESTIONS_ERROR: "questions_error",
 };
 
@@ -13,7 +15,23 @@ export const getQuestionsSuccess = (questions) => ({
   payload: questions,
 });
 
-export const getQuestionsError = (error) => ({
+export const questionsError = (error) => ({
   type: Types.QUESTIONS_ERROR,
   payload: error,
+});
+
+export const saveAnswerRequest = (authedUser, qid, answer) => ({
+  type: Types.SAVE_ANSWER_REQUEST,
+  authedUser,
+  qid,
+  answer,
+});
+
+export const saveAnswerSuccess = (authUser, questionId, answer) => ({
+  type: Types.SAVE_ANSWER_REQUEST,
+  payload: {
+    authUser,
+    questionId,
+    answer,
+  },
 });
