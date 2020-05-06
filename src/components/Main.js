@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useRouteMatch, Route } from "react-router-dom";
+import { useRouteMatch, Route, Switch } from "react-router-dom";
 import { getQuestionsRequest } from "./../actions/questions";
 import UnAnsweredQuestions from "./UnAnsweredQuestion";
 import AnsweredQuestions from "./AnsweredQuestion";
@@ -24,13 +24,7 @@ const Main = ({
   const showUnansweredHandler = () => {
     setShowUnanswered(!showUnanswered);
   };
-  return match ? (
-    <Route
-      path="/questions/:id"
-      //   currentUser={currentUser}
-      component={Question}
-    />
-  ) : (
+  return !match ? (
     <section
       style={{
         display: "flex",
@@ -106,6 +100,12 @@ const Main = ({
         </div>
       </div>
     </section>
+  ) : (
+    <Switch>
+      <Route exact path="/questions/:id">
+        <Question />
+      </Route>
+    </Switch>
   );
 };
 

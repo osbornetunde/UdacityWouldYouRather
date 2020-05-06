@@ -4,6 +4,7 @@ export const Types = {
   SAVE_ANSWER_REQUEST: "save_answer_request",
   SAVE_ANSWER_SUCCESS: "save_answer_success",
   QUESTIONS_ERROR: "questions_error",
+  SAVE_QUESTION_ANSWER: " save_answer_question",
 };
 
 export const getQuestionsRequest = () => ({
@@ -22,6 +23,14 @@ export const questionsError = (error) => ({
 
 export const saveAnswerRequest = (authedUser, qid, answer) => ({
   type: Types.SAVE_ANSWER_REQUEST,
+  authedUser,
+  qid,
+  answer,
+});
+
+export const saveAnswerQuestion = (authedUser, qid, answer) => ({
+  type: Types.SAVE_QUESTION_ANSWER,
+
   authedUser,
   qid,
   answer,

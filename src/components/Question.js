@@ -7,17 +7,17 @@ const Question = ({ authUser, saveAnswerRequest }) => {
   const [answer, setAnswer] = useState("");
   const { id } = useParams();
   const { state } = useLocation();
-  console.log("======> path in question");
 
   const handleChange = (e) => {
     setAnswer(e.target.value);
   };
 
   const handleSubmit = () => {
-    if (answer !== "") {
+    if (answer) {
       saveAnswerRequest(authUser.id, id, answer);
     }
   };
+
   return (
     <div
       style={{

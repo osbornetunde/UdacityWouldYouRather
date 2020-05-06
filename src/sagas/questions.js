@@ -16,14 +16,13 @@ function* watchGetQuestionsRequest() {
 }
 
 function* saveAnswer(action) {
-  console.log("======>answers", action);
   const { authedUser, qid, answer } = action;
   try {
-    const response = yield call(
-      api._saveQuestionAnswer(authedUser, qid, answer)
-    );
-    console.log("=======> result of anwser", response);
-    yield put(actions.saveAnswerSuccess(response));
+    if (authedUser || qid || answer !== undefined) {
+      yield put(actions.saveAnswerQuestion(authedUser, qid, answer));
+      const response = yield call(api._saveQuestionAnswer, action);
+      yield put(actions.saveAnswerSuccess(response));
+    }
   } catch (err) {
     yield put(actions.questionsError(err));
   }
