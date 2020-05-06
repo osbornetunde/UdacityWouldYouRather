@@ -73,7 +73,12 @@ const UnAnsweredQuestion = ({ modifiedUnanwsered, authUser }) => {
                   borderRadius: "2px",
                   marginTop: "1.5rem",
                 }}
-                onClick={() => history.push(`${url}/${question.id}`, question)}
+                onClick={() =>
+                  history.push({
+                    pathname: `${url}/${question.id}`,
+                    state: { question },
+                  })
+                }
               >
                 View Full
               </button>

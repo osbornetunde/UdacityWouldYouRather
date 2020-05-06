@@ -32,9 +32,24 @@ function* watchSaveAnswerRequest() {
   yield takeEvery(actions.Types.SAVE_ANSWER_REQUEST, saveAnswer);
 }
 
+function* saveQuestion(action) {
+  try {
+    const response = yield call(api._saveQuestion, action);
+    console.log("====> response on saving question", response);
+    yield put(actions.saveQUestionSuccess(response));
+  } catch (error) {
+    yield put(actions.questionsError(error));
+  }
+}
+
+function* watchSaveQuestionRequest() {
+  yield takeEvery(actions.Types.SAVE_QUESTION_REQUEST, saveQuestion);
+}
+
 const questionsSaga = [
   fork(watchGetQuestionsRequest),
   fork(watchSaveAnswerRequest),
+  fork(watchSaveQuestionRequest),
 ];
 
 export default questionsSaga;

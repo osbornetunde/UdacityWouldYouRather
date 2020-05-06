@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 const AnsweredQuestion = ({ modifiedAnwsered, authUser }) => {
   const { url } = useRouteMatch();
   const history = useHistory();
+  console.log("=============>modified", modifiedAnwsered);
 
   return (
     <>
@@ -71,7 +72,12 @@ const AnsweredQuestion = ({ modifiedAnwsered, authUser }) => {
                   borderRadius: "2px",
                   marginTop: "1.5rem",
                 }}
-                onClick={() => history.push(`${url}/${question.id}`)}
+                onClick={() =>
+                  history.push({
+                    pathname: `${url}/${question.id}`,
+                    state: { question, from: "answeredQuestion" },
+                  })
+                }
               >
                 View Full
               </button>

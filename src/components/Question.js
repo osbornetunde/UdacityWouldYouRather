@@ -7,6 +7,14 @@ const Question = ({ authUser, saveAnswerRequest }) => {
   const [answer, setAnswer] = useState("");
   const { id } = useParams();
   const { state } = useLocation();
+  console.log("========> user", state);
+
+  const { question } = state;
+
+  const totalLength =
+    question.optionOne.votes.length + question.optionTwo.votes.length;
+  const percentOne = (question.optionOne.votes.length / totalLength) * 100;
+  const percentTwo = (question.optionTwo.votes.length / totalLength) * 100;
 
   const handleChange = (e) => {
     setAnswer(e.target.value);
@@ -15,10 +23,11 @@ const Question = ({ authUser, saveAnswerRequest }) => {
   const handleSubmit = () => {
     if (answer) {
       saveAnswerRequest(authUser.id, id, answer);
+      state.from = true;
     }
   };
 
-  return (
+  return !state.from ? (
     <div
       style={{
         display: "flex",
@@ -40,7 +49,9 @@ const Question = ({ authUser, saveAnswerRequest }) => {
           style={{ borderBottom: "1px solid #ccc", backgroundColor: "#ccc" }}
         >
           <h4>
-            {authUser.id === state.author ? "You asked" : ` ${state.name} asks`}
+            {authUser.id === question.author
+              ? "You asked"
+              : ` ${question.name} asks`}
           </h4>
         </div>
         <div style={{ display: "flex" }}>
@@ -54,7 +65,7 @@ const Question = ({ authUser, saveAnswerRequest }) => {
             }}
           >
             <img
-              src={state.avatarURL}
+              src={question.avatarURL}
               alt="author"
               style={{
                 height: "80%",
@@ -93,7 +104,7 @@ const Question = ({ authUser, saveAnswerRequest }) => {
               />
               <label className="question-choice" htmlFor="optionOne">
                 {" "}
-                {state.optionOne.text}{" "}
+                {question.optionOne.text}{" "}
               </label>
             </span>
             <br />
@@ -106,7 +117,7 @@ const Question = ({ authUser, saveAnswerRequest }) => {
                 onChange={handleChange}
               />
               <label className="question-choice" htmlFor="optionTwo">
-                {state.optionTwo.text}
+                {question.optionTwo.text}
               </label>
             </span>
             <br />
@@ -121,6 +132,156 @@ const Question = ({ authUser, saveAnswerRequest }) => {
             >
               Submit
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "50%",
+          margin: "5px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <div
+          style={{ borderBottom: "1px solid #ccc", backgroundColor: "#ccc" }}
+        >
+          <h4>
+            {authUser.id === question.author
+              ? "You asked"
+              : ` ${question.name} asks`}
+          </h4>
+        </div>
+        <div style={{ display: "flex" }}>
+          <div
+            style={{
+              width: "30%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "40%",
+            }}
+          >
+            <img
+              src={question.avatarURL}
+              alt="author"
+              style={{
+                height: "80%",
+                width: "80%",
+                borderRadius: "50%",
+                objectFit: "cover",
+              }}
+            />
+          </div>
+          <div
+            style={{
+              width: "70%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              justifyContent: "space-around",
+              height: "60%",
+              borderLeft: "1px solid #ccc",
+              padding: "1rem",
+            }}
+          >
+            <h3>Results:</h3>
+            {question.optionOne.votes.includes(authUser.id) ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div>
+                  <div>
+                    <p>You Choose</p>
+                  </div>
+                  <p>Would rather {question.optionOne.text}</p>
+                  <div>
+                    <div
+                      style={{
+                        width: `${percentOne}%`,
+                        backgroundColor: "lilac",
+                      }}
+                    ></div>
+                  </div>
+                  <p>
+                    {question.optionOne.votes.length} out of {totalLength} votes
+                  </p>
+                </div>
+                <br />
+                <div>
+                  <p>Would rather {question.optionTwo.text}</p>
+                  <div>
+                    <div
+                      style={{
+                        width: `${percentTwo}%`,
+                        backgroundColor: "lilac",
+                      }}
+                    ></div>
+                  </div>
+                  <p>
+                    {question.optionTwo.votes.length} out of {totalLength} votes
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                }}
+              >
+                <div>
+                  <p>Would rather {question.optionOne.text}</p>
+                  <div>
+                    <div
+                      style={{
+                        width: `${percentOne}%`,
+                        backgroundColor: "lilac",
+                      }}
+                    ></div>
+                  </div>
+                  <p>
+                    {question.optionOne.votes.length} out of {totalLength} votes
+                  </p>
+                </div>
+                <br />
+                <div>
+                  <div>
+                    <p>You Choose</p>
+                  </div>
+                  <p>Would rather {question.optionTwo.text}</p>
+                  <div>
+                    <div
+                      style={{
+                        width: `${percentTwo}%`,
+                        backgroundColor: "lilac",
+                      }}
+                    ></div>
+                  </div>
+                  <p>
+                    {question.optionTwo.votes.length} out of {totalLength} votes
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

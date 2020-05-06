@@ -4,7 +4,10 @@ export const Types = {
   SAVE_ANSWER_REQUEST: "save_answer_request",
   SAVE_ANSWER_SUCCESS: "save_answer_success",
   QUESTIONS_ERROR: "questions_error",
-  SAVE_QUESTION_ANSWER: " save_answer_question",
+  SAVE_QUESTION_ANSWER: "save_answer_question",
+  SAVE_QUESTION_REQUEST: "save_question_request",
+  SAVE_QUESTION_SUCCESS: "save_question_success",
+  SAVE_QUESTION: "save_question",
 };
 
 export const getQuestionsRequest = () => ({
@@ -30,7 +33,6 @@ export const saveAnswerRequest = (authedUser, qid, answer) => ({
 
 export const saveAnswerQuestion = (authedUser, qid, answer) => ({
   type: Types.SAVE_QUESTION_ANSWER,
-
   authedUser,
   qid,
   answer,
@@ -43,4 +45,23 @@ export const saveAnswerSuccess = (authUser, questionId, answer) => ({
     questionId,
     answer,
   },
+});
+
+export const saveQuestionRequest = (optionOneText, optionTwoText, author) => ({
+  type: Types.SAVE_QUESTION_REQUEST,
+  optionOneText,
+  optionTwoText,
+  author,
+});
+
+// export const saveQuestion = (optionOneText, optionTwoText, author) => ({
+//   type: Types.SAVE_QUESTION,
+//   optionOneText,
+//   optionTwoText,
+//   author
+// })
+
+export const saveQUestionSuccess = (question) => ({
+  type: Types.SAVE_QUESTION_SUCCESS,
+  question,
 });

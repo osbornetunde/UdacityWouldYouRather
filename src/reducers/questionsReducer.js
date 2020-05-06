@@ -9,6 +9,13 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ...action.payload,
       };
+
+    case Types.SAVE_QUESTION_SUCCESS:
+      console.log("======>from save question reducer", action);
+      return {
+        ...state,
+        [action.question.id]: action.question,
+      };
     case Types.SAVE_QUESTION_ANSWER:
       const { authedUser, qid, answer } = action;
 
