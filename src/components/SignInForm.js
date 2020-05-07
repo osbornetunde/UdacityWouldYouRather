@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-import StyledForm from "../styles";
+import { PageLayout, StyledForm, Button } from "../styles";
 
 const SignInForm = ({ users, loginUserRequest }) => {
   const [listOpen, setListOpen] = useState(false);
@@ -14,9 +14,9 @@ const SignInForm = ({ users, loginUserRequest }) => {
     setListOpen(!listOpen);
   };
 
-  const toggleSelected = (id) => {
+  const toggleSelected = (id, name) => {
     setSelectedUser(users.filter((user) => user.id === id));
-    setDisplaySelectedUser(id);
+    setDisplaySelectedUser(name);
   };
 
   const handleSubmit = (e) => {
@@ -26,9 +26,9 @@ const SignInForm = ({ users, loginUserRequest }) => {
   };
 
   return (
-    <StyledForm>
-      <form onSubmit={handleSubmit}>
-        <div style={{ display: "flex" }} onClick={() => toggleList()}>
+    <PageLayout>
+      <StyledForm onSubmit={handleSubmit}>
+        <div onClick={() => toggleList()}>
           <input value={displaySelectedUser} readOnly />
           {listOpen ? <FaAngleDown /> : <FaAngleUp />}
         </div>
@@ -40,35 +40,19 @@ const SignInForm = ({ users, loginUserRequest }) => {
                   key={user.id}
                   value={user.id}
                   onClick={() => toggleSelected(user.id, user.name)}
-                  style={{ padding: ".5rem" }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img
-                      src={user.avatarURL}
-                      alt="user"
-                      style={{
-                        width: "3rem",
-                        height: "3rem",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                      }}
-                    />
-                    {user.name}
+                  <div>
+                    <img src={user.avatarURL} alt="user" />
+                    <p>{user.name}</p>
                   </div>
                 </li>
               ))}
           </ul>
         )}
 
-        <button>Sign In</button>
-      </form>
-    </StyledForm>
+        <Button position>Sign In</Button>
+      </StyledForm>
+    </PageLayout>
   );
 };
 

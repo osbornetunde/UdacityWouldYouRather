@@ -1,43 +1,45 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
-import StyledHeader from "./../styles/StyledHeader";
+import { useHistory, useLocation } from "react-router-dom";
+import {
+  HeaderWrapper,
+  StyledLink,
+  LinkSpan,
+  StyleCurrentUser,
+} from "./../styles";
 
 const Header = ({ currentUser, logoutUserRequest }) => {
   const history = useHistory();
+  const { pathname } = useLocation();
 
   const logOutHandler = () => {
     logoutUserRequest();
     history.push("/");
   };
   return (
-    <StyledHeader>
-      <span>
-        <Link to="/questions">Home</Link>
-      </span>
-      <span>
-        <Link to="/add">New Question</Link>
-      </span>
-      <span>
-        <Link to="/leaderboard">Leader Board</Link>
-      </span>
+    <HeaderWrapper>
+      <LinkSpan>
+        <StyledLink to="/questions" isActive={pathname === "/questions"}>
+          Home
+        </StyledLink>
+      </LinkSpan>
+      <LinkSpan>
+        <StyledLink to="/add" isActive={pathname === "/add"}>
+          New Question
+        </StyledLink>
+      </LinkSpan>
+      <LinkSpan>
+        <StyledLink to="/leaderboard" isActive={pathname === "/add"}>
+          Leader Board
+        </StyledLink>
+      </LinkSpan>
       {currentUser && (
-        <div style={{ display: "flex" }}>
-          <span>{`Hello ${currentUser.name}`}</span>
-          <img
-            src={currentUser.avatarURL}
-            alt="currentUser"
-            style={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "50%",
-              objectFit: "cover",
-            }}
-          />
-          <span onClick={logOutHandler}>Logout</span>
-        </div>
+        <StyleCurrentUser>
+          <LinkSpan>{`Hello ${currentUser.name}`}</LinkSpan>
+          <img src={currentUser.avatarURL} alt="currentUser" />
+          <LinkSpan onClick={logOutHandler}>Logout</LinkSpan>
+        </StyleCurrentUser>
       )}
-    </StyledHeader>
+    </HeaderWrapper>
   );
 };
 

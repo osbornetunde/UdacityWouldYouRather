@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 const UnAnsweredQuestion = ({ modifiedUnanwsered, authUser }) => {
   const { url } = useRouteMatch();
 
-  console.log("======> path", url);
-  console.log("========>unanswered question", modifiedUnanwsered);
   const history = useHistory();
   return (
     <>

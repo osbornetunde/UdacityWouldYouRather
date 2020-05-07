@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const LeaderBoard = ({ sortedUser, authUser }) => {
+const LeaderBoard = ({ sortedUser }) => {
   return (
     <div
       style={{

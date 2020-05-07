@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import StyledForm from "./../styles/index";
 import { saveQuestionRequest } from "./../actions/questions";
 
 const AddQuestion = ({ authUser, saveQuestionRequest }) => {
@@ -51,31 +50,28 @@ const AddQuestion = ({ authUser, saveQuestionRequest }) => {
         <div>
           <p>Complete the Question</p>
           <h3 style={{ fontWeight: "bolder" }}>Would you rather ...</h3>
-          <StyledForm>
-            <form
-              onSubmit={(e) =>
-                handleSubmit(e, optionOne, optionTwo, authUser.id)
-              }
-            >
-              <input
-                type="text"
-                name="optionOne"
-                placeholder="Enter Option One Test Here"
-                style={{ border: "1px solid #ccc", height: "2rem" }}
-                value={optionOne}
-                onChange={handleOptionChange}
-              />
-              <input
-                type="text"
-                name="optionTwo"
-                placeholder="Enter Option Two Test Here"
-                style={{ border: "1px solid #ccc", height: "2rem" }}
-                value={optionTwo}
-                onChange={handleOptionChange}
-              />
-              <button>Submit</button>
-            </form>
-          </StyledForm>
+
+          <form
+            onSubmit={(e) => handleSubmit(e, optionOne, optionTwo, authUser.id)}
+          >
+            <input
+              type="text"
+              name="optionOne"
+              placeholder="Enter Option One Test Here"
+              style={{ border: "1px solid #ccc", height: "2rem" }}
+              value={optionOne}
+              onChange={handleOptionChange}
+            />
+            <input
+              type="text"
+              name="optionTwo"
+              placeholder="Enter Option Two Test Here"
+              style={{ border: "1px solid #ccc", height: "2rem" }}
+              value={optionTwo}
+              onChange={handleOptionChange}
+            />
+            <button>Submit</button>
+          </form>
         </div>
       </div>
     </section>

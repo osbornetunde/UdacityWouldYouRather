@@ -26,7 +26,7 @@ function App({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div>
+    <>
       <Header currentUser={currentUser} logoutUserRequest={logoutUserRequest} />
       <Switch>
         <Route exact path="/">
@@ -52,7 +52,7 @@ function App({
           component={LeaderBoard}
         />
       </Switch>
-    </div>
+    </>
   );
 }
 

@@ -4,16 +4,17 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { IconContext } from "react-icons";
 import store from "./store/store";
-import "./assets/styles.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import GlobalStyle from "./GlobalStyle";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <GlobalStyle />
         <IconContext.Provider
-          value={{ color: "blue", className: "global-class-name" }}
+          value={{ style: { verticalAlign: "middle", color: "#58b4ae" } }}
         >
           <App />
         </IconContext.Provider>
