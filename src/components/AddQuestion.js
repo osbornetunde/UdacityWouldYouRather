@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { saveQuestionRequest } from "./../actions/questions";
+import { PageLayout, Button, StyledAddQuestionWrapper } from "../styles";
 
 const AddQuestion = ({ authUser, saveQuestionRequest }) => {
   const [optionOne, setOptionOne] = useState("");
@@ -26,28 +27,12 @@ const AddQuestion = ({ authUser, saveQuestionRequest }) => {
   };
 
   return (
-    <section>
-      <div
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "2rem",
-          display: "flex",
-          flexDirection: "column",
-          width: "40%",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottom: "1px solid #ccc",
-          }}
-        >
-          <h1 style={{ fontWeight: "700" }}>Create New Question</h1>
+    <PageLayout>
+      <StyledAddQuestionWrapper>
+        <div className="create-question-header">
+          <h3>Create New Question</h3>
         </div>
-        <div>
+        <div className="question-form-container">
           <p>Complete the Question</p>
           <h3 style={{ fontWeight: "bolder" }}>Would you rather ...</h3>
 
@@ -58,23 +43,22 @@ const AddQuestion = ({ authUser, saveQuestionRequest }) => {
               type="text"
               name="optionOne"
               placeholder="Enter Option One Test Here"
-              style={{ border: "1px solid #ccc", height: "2rem" }}
               value={optionOne}
               onChange={handleOptionChange}
             />
+            <span>OR</span>
             <input
               type="text"
               name="optionTwo"
               placeholder="Enter Option Two Test Here"
-              style={{ border: "1px solid #ccc", height: "2rem" }}
               value={optionTwo}
               onChange={handleOptionChange}
             />
-            <button>Submit</button>
+            <Button position>Submit</Button>
           </form>
         </div>
-      </div>
-    </section>
+      </StyledAddQuestionWrapper>
+    </PageLayout>
   );
 };
 

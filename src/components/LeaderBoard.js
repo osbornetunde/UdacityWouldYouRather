@@ -1,89 +1,43 @@
 import React from "react";
 import { connect } from "react-redux";
+import { PageLayout, StyledLeaderBoardWrapper } from "../styles";
 
 const LeaderBoard = ({ sortedUser }) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        width: "100%",
-      }}
-    >
-      <div style={{ width: "60%" }}>
+    <PageLayout>
+      <StyledLeaderBoardWrapper>
+        <h3>Leader Board</h3>
         {sortedUser.map((user) => (
-          <div
-            key={user.id}
-            style={{
-              display: "flex",
-              width: "100%",
-              height: "20%",
-              margin: "2rem",
-              border: "1px solid #ccc",
-              borderRadius: "2px",
-              justifyContent: "space-between",
-              padding: "4px",
-            }}
-          >
-            <div
-              style={{
-                width: "30%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "40%",
-              }}
-            >
-              <img
-                src={user.avatarURL}
-                alt="user"
-                style={{
-                  height: "80%",
-                  width: "80%",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                }}
-              />
+          <div key={user.id} className="leaderboard-card">
+            <div className="img-wrapper">
+              <img src={user.avatarURL} alt="user" />
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <h2>{user.name}</h2>
-              <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <p>Answered questions</p>
-                <p>{user.answeredResults}</p>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-around" }}>
-                <p>Created questions</p>
-                <p>{user.createdQuestions}</p>
-              </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                border: "1px solid #ccc",
-                borderRadius: "3px",
-              }}
-            >
-              <p>Score</p>
-              <div
-                style={{
-                  height: "30%",
-                  width: "30%",
-                  borderRadius: "50%",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <p style={{ fontSize: "20px" }}>{user.ranking}</p>
+            <div className="content-wrapper">
+              <h3>{user.name}</h3>
+              <div className="content">
+                <div className="content-text">
+                  <div>
+                    <p>Answered questions</p>
+                    <p>{user.answeredResults}</p>
+                  </div>
+                  <div>
+                    <p>Created questions</p>
+                    <p>{user.createdQuestions}</p>
+                  </div>
+                </div>
+
+                <div className="score-wrapper">
+                  <p>Score</p>
+                  <div>
+                    <p>{user.ranking}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-    </div>
+      </StyledLeaderBoardWrapper>
+    </PageLayout>
   );
 };
 

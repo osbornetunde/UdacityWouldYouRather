@@ -19,8 +19,9 @@ const StyledForm = styled.form`
     input {
       width: 100%;
       border: 1px solid #00263b;
-      border-radius: 2px;
+      border-radius: 5px;
       height: 2rem;
+      padding: 0.3rem;
     }
   }
 

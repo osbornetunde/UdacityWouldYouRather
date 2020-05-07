@@ -29,7 +29,11 @@ const SignInForm = ({ users, loginUserRequest }) => {
     <PageLayout>
       <StyledForm onSubmit={handleSubmit}>
         <div onClick={() => toggleList()}>
-          <input value={displaySelectedUser} readOnly />
+          <input
+            value={displaySelectedUser}
+            readOnly
+            placeholder="Please select a user"
+          />
           {listOpen ? <FaAngleDown /> : <FaAngleUp />}
         </div>
         {listOpen && (

@@ -29,17 +29,20 @@ const Main = ({
     <PageLayout>
       <MainWrapper>
         <header>
-          <button onClick={showUnansweredHandler} showUnanswered>
-            UnAnswered Questions
+          <button
+            onClick={showUnansweredHandler}
+            style={{ color: showUnanswered ? "#c3edea" : "#222831" }}
+          >
+            Unanswered Questions
           </button>
           <button
             onClick={showUnansweredHandler}
-            showUnanswered={!showUnanswered}
+            style={{ color: showUnanswered ? "#222831" : "#c3edea" }}
           >
             Answered Questions
           </button>
         </header>
-        <div>
+        <div className="main-body">
           {showUnanswered ? (
             <UnAnsweredQuestions unAnsweredQuestions={unAnsweredQuestions} />
           ) : (
@@ -57,12 +60,7 @@ const Main = ({
   );
 };
 
-const mapStateToProps = (
-  { questions, users: { authUser } },
-  { questionId }
-) => {
-  // const question = questions[questionId]
-  // const answeredQuestions = question.optionOne.votes.includes(authUser.id) || question.optionTwo.votes.includes(authUser.id)
+const mapStateToProps = ({ questions, users: { authUser } }) => {
   const answeredQuestions = Object.values(questions).filter(
     (question) =>
       question.optionOne.votes.includes(authUser.id) ||
@@ -74,7 +72,6 @@ const mapStateToProps = (
       !question.optionTwo.votes.includes(authUser.id)
   );
 
-  // console.log("=======>answered questions", answeredQuestions);
   return {
     answeredQuestions,
     unAnsweredQuestions,

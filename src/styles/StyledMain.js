@@ -26,14 +26,16 @@ export const MainWrapper = styled.div`
       align-items: center;
       width: 100%;
       height: 100%;
-      color: ${(props) => (props.showUnanswered ? "green" : "black")};
+      /* color: ${(props) => (props.showUnanswered ? "green" : "black")}; */
     }
   }
 
-  div {
+  .main-body {
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
+    height:100%;
+    overflow: scroll;
   }
 `;

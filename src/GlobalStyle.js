@@ -17,6 +17,7 @@ background-color: #f7f7f7;
 }
 h1, h2, h3, h4, h5, h6{
         font-family: 'Kaushan Script';
+        color: #00263b;
     }
 
 #root{

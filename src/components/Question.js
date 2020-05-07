@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { saveAnswerRequest } from "./../actions/questions";
+import {
+  PageLayout,
+  StyledVoteWrapper,
+  RadioButtonWrapper,
+  StyledVotecard,
+  ProgressBar,
+} from "./../styles";
 
 const Question = ({ authUser, saveAnswerRequest }) => {
   const [answer, setAnswer] = useState("");
@@ -28,73 +35,22 @@ const Question = ({ authUser, saveAnswerRequest }) => {
   };
 
   return !state.from ? (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "50%",
-          margin: "5px",
-          border: "1px solid #ccc",
-          borderRadius: "5px",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{ borderBottom: "1px solid #ccc", backgroundColor: "#ccc" }}
-        >
+    <PageLayout>
+      <StyledVoteWrapper>
+        <span>
           <h4>
             {authUser.id === question.author
               ? "You asked"
               : ` ${question.name} asks`}
           </h4>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              width: "30%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "40%",
-            }}
-          >
-            <img
-              src={question.avatarURL}
-              alt="author"
-              style={{
-                height: "80%",
-                width: "80%",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
+        </span>
+        <div className="card-body">
+          <div className="img-wrapper">
+            <img src={question.avatarURL} alt="author" />
           </div>
-          <div
-            style={{
-              width: "70%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "space-around",
-              height: "60%",
-              borderLeft: "1px solid #ccc",
-              padding: "1rem",
-            }}
-          >
+          <div className="content-wrapper">
             <h3>Would you rather</h3>
-            <span
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-            >
+            <RadioButtonWrapper>
               <input
                 type="radio"
                 name="option"
@@ -106,9 +62,9 @@ const Question = ({ authUser, saveAnswerRequest }) => {
                 {" "}
                 {question.optionOne.text}{" "}
               </label>
-            </span>
+            </RadioButtonWrapper>
             <br />
-            <span style={{ display: "flex" }}>
+            <RadioButtonWrapper>
               <input
                 type="radio"
                 name="option"
@@ -119,173 +75,72 @@ const Question = ({ authUser, saveAnswerRequest }) => {
               <label className="question-choice" htmlFor="optionTwo">
                 {question.optionTwo.text}
               </label>
-            </span>
+            </RadioButtonWrapper>
             <br />
-            <button
-              style={{
-                width: "80%",
-                border: "1px solid green",
-                borderRadius: "2px",
-                marginTop: "1.5rem",
-              }}
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <button onClick={handleSubmit}>Submit</button>
           </div>
         </div>
-      </div>
-    </div>
+      </StyledVoteWrapper>
+    </PageLayout>
   ) : (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "50%",
-          margin: "5px",
-          border: "1px solid #ccc",
-          borderRadius: "5px",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div
-          style={{ borderBottom: "1px solid #ccc", backgroundColor: "#ccc" }}
-        >
+    <PageLayout>
+      <StyledVoteWrapper>
+        <span>
           <h4>
             {authUser.id === question.author
               ? "You asked"
               : ` ${question.name} asks`}
           </h4>
-        </div>
-        <div style={{ display: "flex" }}>
-          <div
-            style={{
-              width: "30%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "40%",
-            }}
-          >
-            <img
-              src={question.avatarURL}
-              alt="author"
-              style={{
-                height: "80%",
-                width: "80%",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
-            />
+        </span>
+        <div className="card-body">
+          <div className="img-wrapper">
+            <img src={question.avatarURL} alt="author" />
           </div>
-          <div
-            style={{
-              width: "70%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "space-around",
-              height: "60%",
-              borderLeft: "1px solid #ccc",
-              padding: "1rem",
-            }}
-          >
+          <div className="content-wrapper">
             <h3>Results:</h3>
             {question.optionOne.votes.includes(authUser.id) ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                <div>
-                  <div>
-                    <p>You Choose</p>
-                  </div>
+              <StyledVotecard>
+                <div className="card">
+                  <p className="choosen">You Choose</p>
                   <p>Would rather {question.optionOne.text}</p>
-                  <div>
-                    <div
-                      style={{
-                        width: `${percentOne}%`,
-                        backgroundColor: "lilac",
-                      }}
-                    ></div>
-                  </div>
+                  <ProgressBar width={`${percentOne}%`} />
                   <p>
                     {question.optionOne.votes.length} out of {totalLength} votes
                   </p>
                 </div>
                 <br />
-                <div>
+                <div className="card">
                   <p>Would rather {question.optionTwo.text}</p>
-                  <div>
-                    <div
-                      style={{
-                        width: `${percentTwo}%`,
-                        backgroundColor: "lilac",
-                      }}
-                    ></div>
-                  </div>
+                  <ProgressBar width={`${percentTwo}%`} />
                   <p>
                     {question.optionTwo.votes.length} out of {totalLength} votes
                   </p>
                 </div>
-              </div>
+              </StyledVotecard>
             ) : (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                <div>
+              <StyledVotecard>
+                <div className="card">
                   <p>Would rather {question.optionOne.text}</p>
-                  <div>
-                    <div
-                      style={{
-                        width: `${percentOne}%`,
-                        backgroundColor: "lilac",
-                      }}
-                    ></div>
-                  </div>
+                  <ProgressBar width={`${percentOne}%`} />
                   <p>
                     {question.optionOne.votes.length} out of {totalLength} votes
                   </p>
                 </div>
                 <br />
-                <div>
-                  <div>
-                    <p>You Choose</p>
-                  </div>
+                <div className="card">
+                  <p className="choosen">You Choose</p>
                   <p>Would rather {question.optionTwo.text}</p>
-                  <div>
-                    <div
-                      style={{
-                        width: `${percentTwo}%`,
-                        backgroundColor: "lilac",
-                      }}
-                    ></div>
-                  </div>
+                  <ProgressBar width={`${percentTwo}%`} />
                   <p>
                     {question.optionTwo.votes.length} out of {totalLength} votes
                   </p>
                 </div>
-              </div>
+              </StyledVotecard>
             )}
           </div>
         </div>
-      </div>
-    </div>
+      </StyledVoteWrapper>
+    </PageLayout>
   );
 };
 
